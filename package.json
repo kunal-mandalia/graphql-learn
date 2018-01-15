@@ -1,8 +1,0 @@
-{
-  "name": "graphql-learn",
-  "version": "1.0.0",
-  "main": "index.js",
-  "repository": "https://github.com/kunal-mandalia/graphql-learn.git",
-  "author": "kunal.v.mandalia@gmail.com",
-  "license": "MIT"
-}
