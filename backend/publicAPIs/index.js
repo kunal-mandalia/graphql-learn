@@ -1,3 +1,4 @@
+const fetch = require('node-fetch')
 const express = require('express')
 const graphqlHTTP = require('express-graphql')
 const { buildSchema } = require('graphql')
@@ -6,6 +7,7 @@ const { buildSchema } = require('graphql')
 const schema = buildSchema(`
   type Query {
     hello: String
+    followerCount(username: String): Int
   }
 `)
 
@@ -14,6 +16,11 @@ const root = {
   hello: () => {
     return 'Hello world!';
   },
+  followerCount: ({username}) => fetch(`https://api.github.com/users/${username}`)
+    .then(res => res.json())
+    .then(profile => {
+      return profile.followers
+    })
 }
 
 const app = express()
