@@ -6,8 +6,31 @@ const { buildSchema } = require('graphql')
 // Construct a schema, using GraphQL schema language
 const schema = buildSchema(`
   type Query {
+    "The good old hello world"
     hello: String
-    followerCount(username: String): Int
+    
+    "Github follower count by username"
+    network(username: String = "kunal-mandalia"): GithubNetwork
+
+    "Github short profile"
+    shortProfile(username: String = "kunal-mandalia"): GithubSnapshot
+  }
+
+  type GithubNetwork {
+    followers: Int
+    following: Int
+  }
+
+  interface Person {
+    name: String
+    company: String
+  }
+
+  type GithubSnapshot implements Person {
+    name: String
+    company: String
+    followers: Int
+    bio: String
   }
 `)
 
@@ -16,10 +39,15 @@ const root = {
   hello: () => {
     return 'Hello world!';
   },
-  followerCount: ({username}) => fetch(`https://api.github.com/users/${username}`)
+  network: ({username}) => fetch(`https://api.github.com/users/${username}`)
     .then(res => res.json())
     .then(profile => {
-      return profile.followers
+      return profile
+    }),
+  shortProfile: ({username}) => fetch(`https://api.github.com/users/${username}`)
+    .then(res => res.json())
+    .then(profile => {
+      return profile
     })
 }
 
