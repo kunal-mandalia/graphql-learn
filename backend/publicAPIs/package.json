@@ -5,6 +5,7 @@
   "author": "Kunal Mandalia <kunal.v.mandalia@gmail.com> (http://kunalmandalia.com/)",
   "license": "MIT",
   "dependencies": {
+    "crypto": "1.0.1",
     "express": "4.16.2",
     "express-graphql": "0.6.11",
     "graphql": "0.12.3",
