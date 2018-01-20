@@ -9,8 +9,77 @@ Model of the data that can be fetched through GraphQL server. Defines
 - Types of data which can be fetched
 - Relationships between types 
 
+#### Type definitions
+Built-in scalar types consist of `Int, String, ID, ...`
+Custom types are defined:
+```
+Type Message {
+  id: ID!
+  content
+  author: String!
+}
+```
+
+#### Query
+Server:
+```
+type Query {
+  getMessage(id: Int!): Message
+}
+```
+
+Client:
+```
+query {
+  getMessage(id: 2) {
+    id
+    content
+    author
+  }
+}
+```
+
+#### Mutation
+Server:
+```
+type Mutation {
+  createMessage(input: MessageInput!): Message
+}
+
+# input type definition
+input MessageInput {
+  content
+  author
+}
+```
+
+Client:
+```
+mutation {
+  createMessage(input: {
+    content: 'a new message',
+    author: 'Kunal'
+  })
+  # Return Message properties
+  {
+    id
+    author
+  }
+}
+```
+
 ### Resolver
 Resolve functions define how types and fields in the schema are connected to various backends
+
+```
+getMessage: ({id}) => {
+    if (!fakeDatabase[id]) {
+      # returns { errors: [...], data: ... }
+      throw new Error(`Message not found (id: ${id})`)
+    }
+    return new Message(id, fakeDatabase[id])
+  }
+```
 
 ### Query execution
 1. Parse string query into AST (abstract syntax tree)
