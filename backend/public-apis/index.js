@@ -91,14 +91,24 @@ const root = {
     fakeDatabase[id] = input
     return new Message(id, input)
   }
-
 }
 
 const app = express()
-app.use('/graphql', graphqlHTTP({
+
+app.use("/public/graphql", function (req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*')
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With')
+  if (req.method === 'OPTIONS') {
+    res.sendStatus(200)
+  } else {
+    next()
+  }
+})
+
+app.use('/public/graphql', graphqlHTTP({
   schema: schema,
   rootValue: root,
   graphiql: true,
 }))
 app.listen(4000)
-console.log('Running a GraphQL API server at localhost:4000/graphql')
+console.log('Running a GraphQL API server at http://localhost:4000/public/graphql')
