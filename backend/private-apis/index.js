@@ -59,7 +59,7 @@ const schema = buildSchema(`
 
   type Query {
     login(input: UserCredentials): String
-    whoAmI: User
+    isLoggedIn: User
   }
 `)
 
@@ -91,7 +91,7 @@ const root = {
       throw new Error(`Incorrect username / password`)
     }
   },
-  whoAmI: (_, user, ctx) => {
+  isLoggedIn: (_, user, ctx) => {
     if (user && user.username) {
       return {
         username: user.username,
