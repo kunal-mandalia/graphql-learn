@@ -1,5 +1,10 @@
 import React, {Component} from 'react'
 import { withApollo } from 'react-apollo'
+import {
+  Container,
+  TextInput,
+  Button,
+} from './styles'
 
 class Login extends Component {
   constructor(props) {
@@ -54,15 +59,16 @@ class Login extends Component {
   render() {
     const { username, password } = this.state
     return (
-      <div className='login'>
+      <Container className='login'>
+        <h1>Login</h1>
         <label htmlFor='username'>username</label>{' '}
-        <input id='username' type='text' onChange={this.onChangeUsername} value={username} />
+        <TextInput id='username' type='text' onChange={this.onChangeUsername} value={username} />
         <br />
         <label htmlFor='password'>password</label>{' '}
-        <input id='password' type='password' onChange={this.onChangePassword} value={password} />
+        <TextInput id='password' type='password' onChange={this.onChangePassword} value={password} />
         <br />
-        <button onClick={this.onLogin}>Login</button>
-      </div>
+        <Button btnStyle='success' onClick={this.onLogin}>Login</Button>
+      </Container>
     )
   }
 }

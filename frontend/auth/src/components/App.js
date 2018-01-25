@@ -24,9 +24,9 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <h1 className="App-title">Auth: GraphQL</h1>
+          <h1 className="App-title">Frontend/Auth</h1>
+          <p>An Apollo-Client demo</p>
         </header>
-        <hr />
         {
           loading
             ? '... loading ...'

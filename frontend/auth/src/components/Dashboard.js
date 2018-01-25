@@ -2,6 +2,11 @@ import React, {Component} from 'react'
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 import { withApollo } from 'react-apollo'
+import {
+  Container,
+  TextInput,
+  Button,
+} from './styles'
 
 const QUERY_ISLOGGEDIN = gql`
   query {
@@ -26,11 +31,11 @@ class Dashboard extends Component {
   render() {
     const { data: { isLoggedIn: { username, email }}, loading} = this.props
     return (
-      <div className='dashboard'>
+      <Container className='dashboard'>
         <h1>Dashboard</h1>
         <p>Hello {username}</p>
-        <button onClick={this.onLogout}>Log out</button>
-      </div>
+        <Button btnStyle='danger' onClick={this.onLogout}>Log out</Button>
+      </Container>
     )
   }
 }
