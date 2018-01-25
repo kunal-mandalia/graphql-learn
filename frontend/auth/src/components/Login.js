@@ -1,11 +1,12 @@
 import React, {Component} from 'react'
+import { withApollo } from 'react-apollo'
 
 class Login extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      username: '',
-      password: ''
+      username: 'Kunal',
+      password: 'Password'
     }
     this.onLogin = this.onLogin.bind(this)
     this.onChangeUsername = this.onChangeUsername.bind(this)
@@ -38,9 +39,15 @@ class Login extends Component {
           username:"${username}"
           password:"${password}"
         })
-      }` }),
-    }).then(data => data.json())
-    .then(d => console.log('success', d))
+      }`}),
+    })
+    .then(res => res.json())
+    .then(resJson => {
+      const token = resJson.data.login
+      console.log('token', token)
+      localStorage.setItem('token', token)
+      window.location.reload()
+    })
     .catch(e => console.log(e))
   }
 
@@ -60,4 +67,4 @@ class Login extends Component {
   }
 }
 
-export default Login
+export default withApollo(Login)

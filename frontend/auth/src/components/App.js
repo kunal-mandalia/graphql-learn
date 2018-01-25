@@ -5,29 +5,38 @@ import Dashboard from './Dashboard'
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 
-const MY_QUERY = gql`
+const QUERY_ISLOGGEDIN = gql`
   query {
-    login(input:{
-      username:"Kunal"
-      password:"Password"
-    })
+    isLoggedIn {
+      username
+      email
+    }
   }
 `
 
-
 class App extends Component {
+  constructor(props) {
+    super(props)
+  }
+
   render() {
+    const { data: { isLoggedIn }, loading } = this.props
     return (
       <div className="App">
-        {JSON.stringify(this.props.data)}
         <header className="App-header">
           <h1 className="App-title">Auth: GraphQL</h1>
         </header>
         <hr />
-        <Login />
+        {
+          loading
+            ? '... loading ...'
+            : isLoggedIn
+              ? <Dashboard />
+              : <Login />
+        }
       </div>
     );
   }
 }
 
-export default graphql(MY_QUERY)(App);
+export default graphql(QUERY_ISLOGGEDIN)(App);
