@@ -7,10 +7,11 @@ import {
   TextInput,
   Button,
 } from './styles'
+import { GRAPHQL_ENDPOINT } from '../constants'
 
 const QUERY_ISLOGGEDIN = gql`
   query {
-    isLoggedIn {
+    getMyProfile {
       username
       email
     }
@@ -21,6 +22,11 @@ class Dashboard extends Component {
   constructor(props) {
     super(props)
     this.onLogout = this.onLogout.bind(this)
+    this.onChangeUsername = this.onChangeUsername.bind(this)
+  }
+
+  onChangeUsername () {
+    // https://www.apollographql.com/docs/react/basics/mutations.html
   }
 
   onLogout () {
@@ -29,12 +35,12 @@ class Dashboard extends Component {
   }
 
   render() {
-    const { data: { isLoggedIn: { username, email }}, loading} = this.props
+    const { data: { getMyProfile: { username, email }}, loading} = this.props
     return (
       <Container className='dashboard'>
-        <h1>Dashboard</h1>
-        <p>Hello {username}</p>
-        <Button btnStyle='danger' onClick={this.onLogout}>Log out</Button>
+        <h2>Dashboard</h2>
+        <p>Hello {username} <span onClick={this.onChangeUsername}>( change )</span></p>
+        <Button btnStyle='secondary' onClick={this.onLogout}>Log out</Button>
       </Container>
     )
   }

@@ -19,3 +19,14 @@ export const Button = styled('button')`
   color: white;
   font-size: large;
 `
+export const SpaceV = styled('div')`
+  margin: ${p => p.size || '8px'} 0;
+`
+export const SpaceH = styled('div')`
+  margin: 0 ${p => p.size || '8px'};
+`
+export const Gradient = styled('div')`
+  background: #8E0E00;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #1F1C18, #8E0E00);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #1F1C18, #8E0E00); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+`

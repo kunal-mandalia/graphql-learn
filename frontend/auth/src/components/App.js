@@ -4,10 +4,11 @@ import Login from './Login'
 import Dashboard from './Dashboard'
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
+import { Gradient } from './styles'
 
 const QUERY_ISLOGGEDIN = gql`
   query {
-    isLoggedIn {
+    getMyProfile {
       username
       email
     }
@@ -20,17 +21,19 @@ class App extends Component {
   }
 
   render() {
-    const { data: { isLoggedIn }, loading } = this.props
+    const { data: { getMyProfile }, loading } = this.props
     return (
       <div className="App">
-        <header className="App-header">
-          <h1 className="App-title">Frontend/Auth</h1>
-          <p>An Apollo-Client demo</p>
-        </header>
+        <Gradient>
+          <header className="App-header">
+            <h1 className="App-title">Frontend/Auth</h1>
+            <p>An Apollo-Client demo</p>
+          </header>
+        </Gradient>
         {
           loading
             ? '... loading ...'
-            : isLoggedIn
+            : getMyProfile
               ? <Dashboard />
               : <Login />
         }

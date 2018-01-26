@@ -4,7 +4,9 @@ import {
   Container,
   TextInput,
   Button,
+  SpaceV,
 } from './styles'
+import { GRAPHQL_ENDPOINT } from '../constants'
 
 class Login extends Component {
   constructor(props) {
@@ -32,7 +34,7 @@ class Login extends Component {
 
   onLogin() {
     const { username, password } = this.state
-    fetch('http://localhost:4001/private/graphql', {
+    fetch(GRAPHQL_ENDPOINT, {
       method: 'post',
       headers: new Headers({
         'Accept': 'application/json, text/plain, */*',
@@ -60,13 +62,13 @@ class Login extends Component {
     const { username, password } = this.state
     return (
       <Container className='login'>
-        <h1>Login</h1>
+        <h2>Login</h2>
         <label htmlFor='username'>username</label>{' '}
         <TextInput id='username' type='text' onChange={this.onChangeUsername} value={username} />
         <br />
         <label htmlFor='password'>password</label>{' '}
         <TextInput id='password' type='password' onChange={this.onChangePassword} value={password} />
-        <br />
+        <SpaceV />
         <Button btnStyle='success' onClick={this.onLogin}>Login</Button>
       </Container>
     )
