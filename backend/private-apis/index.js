@@ -59,7 +59,11 @@ const schema = buildSchema(`
 
   type Query {
     login(input: UserCredentials): String
-    isLoggedIn: User
+    getMyProfile: User
+  }
+
+  type Mutation {
+    updateUsername(input: String): User
   }
 `)
 
@@ -70,8 +74,7 @@ const fakeUser = {
 }
 
 const root = {
-  login: ({input}, user, ctx) => {
-    const { username, password } = input
+  login: ({input: { username, password}}, user, ctx) => {
     if (fakeUser.username === username && fakeUser.password === password) {
       let authToken
       const payload = {
@@ -91,8 +94,20 @@ const root = {
       throw new Error(`Incorrect username / password`)
     }
   },
-  isLoggedIn: (_, user, ctx) => {
+  getMyProfile: (_, user, ctx) => {
     if (user && user.username) {
+      return {
+        username: fakeUser.username,
+        email: fakeUser.email
+      }
+    } else {
+      throw new Error(`Login first`)
+    }
+  },
+  updateUsername: ({input}, user, ctx) => {
+    if (user && user.username) {
+      fakeUser.username = input
+      user.username = input
       return {
         username: user.username,
         email: user.email
