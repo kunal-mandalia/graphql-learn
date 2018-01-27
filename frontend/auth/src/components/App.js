@@ -6,7 +6,7 @@ import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 import { Gradient } from './styles'
 
-const QUERY_ISLOGGEDIN = gql`
+const QUERY_MYPROFILE = gql`
   query {
     getMyProfile {
       username
@@ -42,4 +42,4 @@ class App extends Component {
   }
 }
 
-export default graphql(QUERY_ISLOGGEDIN)(App);
+export default graphql(QUERY_MYPROFILE)(App);

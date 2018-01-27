@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
-import { withApollo } from 'react-apollo'
+import { withApollo, compose } from 'react-apollo'
 import {
   Container,
   TextInput,
@@ -9,11 +9,22 @@ import {
 } from './styles'
 import { GRAPHQL_ENDPOINT } from '../constants'
 
-const QUERY_ISLOGGEDIN = gql`
+
+const QUERY_MYPROFILE = gql`
   query {
     getMyProfile {
       username
       email
+    }
+  }
+`
+
+const MUTATION_UPDATEUSERNAME = gql`
+  mutation updateUsername {
+    updateUsername(input:"Mr.K") {
+      username
+      email
+      token
     }
   }
 `
@@ -27,6 +38,14 @@ class Dashboard extends Component {
 
   onChangeUsername () {
     // https://www.apollographql.com/docs/react/basics/mutations.html
+    this.props.mutate({
+      variables: { input: 'Master.K' }
+    })
+    .then(({ data }) => {
+      console.log('data', data)
+      localStorage.set('token', data.token)
+    })
+    .catch((error) => console.log(error))
   }
 
   onLogout () {
@@ -46,4 +65,8 @@ class Dashboard extends Component {
   }
 }
 
-export default withApollo(graphql(QUERY_ISLOGGEDIN)(Dashboard))
+export default withApollo(
+  compose(
+    graphql(QUERY_MYPROFILE),
+    graphql(MUTATION_UPDATEUSERNAME)
+  )(Dashboard))
