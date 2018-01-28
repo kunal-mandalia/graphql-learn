@@ -1,5 +1,43 @@
 import styled, { css } from 'react-emotion'
 
+const btnBase = css`
+  cursor: pointer;
+  padding: 18px 22px;
+  color: white;
+  font-size: large;
+`
+const bgGreen = css`
+  ${btnBase};
+  background-color: green;
+`
+const hoverBgGreen = css`
+  transition: all 0.25s;
+  :hover {
+    background-color: darkGreen;
+  }
+`
+const bgPurple = css`
+  background-color: purple;
+`
+const hoverBgPurple = css`
+  transition: all 0.25s;
+  :hover {
+    background-color: #5d015d;
+  }
+`
+const btnSuccess = css`
+  ${btnBase};
+  ${bgGreen};
+  ${hoverBgGreen};
+`
+const btnPrimary = css`
+  ${btnBase};
+  ${bgPurple};
+  ${hoverBgPurple};
+`
+const primary = css`
+  background-color: red;
+`
 export const Container = styled('div')`
   padding: 15px;
 `
@@ -9,15 +47,7 @@ export const TextInput = styled('input')`
   height: 30px;
 `
 export const Button = styled('button')`
-  padding: 18px 22px;
-  background-color: ${p => p.btnStyle === 'success'
-    ? 'green'
-    : p.btnStyle === 'danger'
-      ? 'red'
-      : 'purple'
-  }
-  color: white;
-  font-size: large;
+  ${p => p.btnStyle === 'success' ? btnSuccess : btnPrimary}
 `
 export const SpaceV = styled('div')`
   margin: ${p => p.size || '8px'} 0;
