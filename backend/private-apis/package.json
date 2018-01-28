@@ -10,6 +10,7 @@
     "express-graphql": "0.6.11",
     "fetch": "1.1.0",
     "graphql": "0.12.3",
+    "jest": "22.1.4",
     "jsonwebtoken": "8.1.0",
     "nodemon": "1.14.11"
   },
