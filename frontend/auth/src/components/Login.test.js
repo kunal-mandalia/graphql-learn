@@ -16,4 +16,16 @@ describe(`<Login .../>`, () => {
     expect(wrapper.state().username).toEqual('RobertMartin')
     expect(wrapper.state().password).toEqual('Pass123')
   })
+
+  it(`should call login endpoint on login`, () => {
+
+  })
+
+  it(`should persist token to localStorage when login successful`, () => {
+
+  })
+
+  it(`should render error when login unsuccessful`, () => {
+    
+  })
 })
