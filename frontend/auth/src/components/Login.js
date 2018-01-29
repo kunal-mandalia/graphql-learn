@@ -8,7 +8,7 @@ import {
 } from './styles'
 import { GRAPHQL_ENDPOINT } from '../constants'
 
-class Login extends Component {
+export class Login extends Component {
   constructor(props) {
     super(props)
     this.state = {
