@@ -4,24 +4,31 @@ const { JWT_SECRET_KEY } = require('./constants')
 
 describe(`helper functions`, () => {
   describe(`signToken()`, () => {
-    it(`should generate a JWT valid token given good payload`, async () => {
-      const options = {
-        payload: {
+    describe(`given a valid payload`, () => {
+      let options, token
+      beforeEach(async () => {
+        options = {
+          payload: {
             _id: '123',
             username: 'Kunal V. Mandalia',
             email: 'kunal.v.mandalia@gmail.com'
+          }
         }
-      }
-      const token = await signToken(options)
-      expect(typeof token).toEqual('string')
-      expect(token.length).toBeGreaterThan(10)
+        token = await signToken(options)
+      })
+      
+      it(`should generate a token`, () => {
+        expect(typeof token).toEqual('string')
+        expect(token.length).toBeGreaterThan(10)
+      })
 
-      // decoded token's object should contain payload
-      jsonwebtoken.verify(token, JWT_SECRET_KEY, (error, decoded) => {
-        expect(error).toBeFalsy()
-        for (key in options.payload) {
-          expect(decoded[key]).toEqual(options.payload[key])
-        }
+      it(`should generate a token which decodes to include payload`, () => {
+        jsonwebtoken.verify(token, JWT_SECRET_KEY, (error, decoded) => {
+          expect(error).toBeFalsy()
+          for (key in options.payload) {
+            expect(decoded[key]).toEqual(options.payload[key])
+          }
+        })
       })
     })
   })
