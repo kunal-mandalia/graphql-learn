@@ -1,12 +1,12 @@
 const jwt = require('jsonwebtoken')
 const { JWT_SECRET_KEY } = require('./constants')
 
-function isAuthenticated (req, res, next, jwtoken = jwt) {
+function isAuthenticated (req, res, next) {
   const token = req.body.token || req.headers.authorization
   // check jwt signature
   // get user information from jwt
   if (token) {
-    jwtoken.verify(token, JWT_SECRET_KEY, (error, decoded) => {
+    jwt.verify(token, JWT_SECRET_KEY, (error, decoded) => {
       if (error) { return res.status(400).json({ error }) }
       req.context = decoded
       next()
