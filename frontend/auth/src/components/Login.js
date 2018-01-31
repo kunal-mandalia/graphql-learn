@@ -32,7 +32,7 @@ export class Login extends Component {
     })
   }
 
-  onLogin() {
+   onLogin() {
     const { username, password } = this.state
     fetch(GRAPHQL_ENDPOINT, {
       method: 'post',
@@ -46,16 +46,18 @@ export class Login extends Component {
           username:"${username}"
           password:"${password}"
         })
-      }`}),
+      }`})
     })
-    .then(res => res.json())
-    .then(resJson => {
+    .then(res => res.text())
+    .then(text => { // res.json() causes localStorage test to fail
+      const resJson = JSON.parse(text)
       const token = resJson.data.login
-      console.log('token', token)
       localStorage.setItem('token', token)
       window.location.reload()
     })
-    .catch(e => console.log(e))
+    .catch(error => {
+      console.error('error', error)
+    })
   }
 
   render() {
@@ -69,7 +71,7 @@ export class Login extends Component {
         <label htmlFor='password'>password</label>{' '}
         <TextInput id='password' type='password' onChange={this.onChangePassword} value={password} />
         <SpaceV />
-        <Button btnStyle='success' onClick={this.onLogin}>Login</Button>
+        <Button id='login' btnStyle='success' onClick={this.onLogin}>Login</Button>
       </Container>
     )
   }
