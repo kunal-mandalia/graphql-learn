@@ -1,19 +1,22 @@
 import gql from 'graphql-tag'
+import fragments from './fragments'
 
 export const QUERY_MYPROFILE = gql`
   query getMyProfile {
     getMyProfile {
-      username
-      email
+      ...person
     }
   }
+
+  ${fragments}
 `
 export const MUTATION_UPDATEUSERNAME = gql`
   mutation updateUsername ($newUsername: String) {
     updateUsername(input: $newUsername) {
-      username
-      email
+      ...person
       token
     }
   }
+
+  ${fragments}
 `
