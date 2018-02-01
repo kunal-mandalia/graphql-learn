@@ -9,8 +9,8 @@
     "cross-env": "^5.1.3"
   },
   "scripts": {
-    "test-client": "cd ./frontend/auth/ && yarn test-once",
-    "test-server:private": "cd ./backend/private-apis/ && yarn test-once",
-    "test": "yarn test-client && yarn test-server:private"
+    "CI:client": "cd ./frontend/auth/ && yarn CI",
+    "CI:server:private": "cd ./backend/private-apis/ && yarn CI",
+    "test": "yarn CI:client && yarn CI:server:private"
   }
 }
