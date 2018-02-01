@@ -31,7 +31,7 @@ const client = new ApolloClient({
   //  `/graphql` endpoint on the same host
   link: authLink.concat(httpLink),
   cache: new InMemoryCache()
-});
+})
 
 ReactDOM.render(
   <ApolloProvider client={client}>

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import '../styles/App.css';
 import Login from './Login'
 import Dashboard from './Dashboard'
+import Loader from './Loader'
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 import { Gradient } from './styles'
@@ -15,13 +16,13 @@ const QUERY_MYPROFILE = gql`
   }
 `
 
-class App extends Component {
+export class App extends Component {
   constructor(props) {
     super(props)
   }
 
   render() {
-    const { data: { getMyProfile }, loading } = this.props
+    const { data: { getMyProfile, loading, errors } } = this.props
     return (
       <div className="App">
         <Gradient>
@@ -32,7 +33,7 @@ class App extends Component {
         </Gradient>
         {
           loading
-            ? '... loading ...'
+            ? <Loader />
             : getMyProfile
               ? <Dashboard />
               : <Login />
