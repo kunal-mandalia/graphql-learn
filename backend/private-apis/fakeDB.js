@@ -8,6 +8,12 @@ const fakeDB = {
   }
 }
 
+function getUserById (id) {
+  const allFields = fakeDB[id]
+  const safeFields = { email, username } = allFields
+  return safeFields
+}
+
 function getUserByUsernamePassword (username, password, db = fakeDB) {
   return Object.keys(db)
     .map(k => db[k])
@@ -16,5 +22,6 @@ function getUserByUsernamePassword (username, password, db = fakeDB) {
 
 module.exports = {
   fakeDB,
-  getUserByUsernamePassword
+  getUserById,
+  getUserByUsernamePassword,
 }

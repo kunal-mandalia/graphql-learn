@@ -35,6 +35,13 @@ const btnPrimary = css`
   ${bgPurple};
   ${hoverBgPurple};
 `
+const btnDisabled = css `
+  cursor: not-allowed;
+  background-color: lightGrey;
+  &:hover {
+    background-color: lightGrey;
+  }
+`
 const primary = css`
   background-color: red;
 `
@@ -47,7 +54,8 @@ export const TextInput = styled('input')`
   height: 30px;
 `
 export const Button = styled('button')`
-  ${p => p.btnStyle === 'success' ? btnSuccess : btnPrimary}
+${p => p.btnStyle === 'success' ? btnSuccess : btnPrimary}
+${p => p.disabled && btnDisabled }
 `
 export const SpaceV = styled('div')`
   margin: ${p => p.size || '8px'} 0;
