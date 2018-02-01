@@ -1,12 +1,17 @@
 const { buildSchema } = require('graphql')
 
 const schema = (buildSchemaGQL = buildSchema) => buildSchemaGQL(`
-  type User {
+  interface Person {
     username: String!
     email: String!
   }
 
-  type UserWithToken {
+  type User implements Person {
+    username: String!
+    email: String!
+  }
+
+  type UserWithToken implements Person {
     username: String!
     email: String!
     token: String!

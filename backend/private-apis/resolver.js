@@ -1,5 +1,4 @@
-const db = require('./fakeDB').fakeDB
-const getUserByUsernamePassword = require('./fakeDB').getUserByUsernamePassword
+const { fakeDB: db, getUserById, getUserByUsernamePassword} = require('./fakeDB')
 const jwt = require('jsonwebtoken')
 const { JWT_SECRET_KEY } = require('./constants')
 
@@ -34,24 +33,21 @@ const resolver = {
     }
   },
   getMyProfile: (_, user, ctx) => {
-    if (user && user.username) {
-      return {
-        username: user.username,
-        email: user.email
-      }
+    if (user && user._id) {
+      return getUserById(user._id)
     } else {
       throw new Error(`Login first`)
     }
   },
   updateUsername: ({input}, user, ctx) => {
-    if (user && user.username) {
+    if (user && user._id) {
 
       // update db
-      db['123'].username = input
+      db[user._id].username = input
 
       // issue new jwt
       return new Promise((resolve, reject) => {
-        const payload = db['123']
+        const payload = db[user._id]
         jwt.sign(payload, JWT_SECRET_KEY, { expiresIn: '5m' }, (error, token, a) => {
           if (error) {
             throw new Error(`Error creating JWT: ${error}`)
@@ -61,7 +57,7 @@ const resolver = {
         })
       })
       .then(token => {
-        return Object.assign({}, db['123'], { token })
+        return Object.assign({}, db[user._id], { token })
       })
       .catch(e => console.log)
     } else {
