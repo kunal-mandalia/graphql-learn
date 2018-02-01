@@ -15,7 +15,8 @@
     "nodemon": "1.14.11"
   },
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "node index.js",
+    "dev": "nodemon index.js",
     "test": "yarn jest --watch",
     "CI": "yarn install && yarn jest"
   }
