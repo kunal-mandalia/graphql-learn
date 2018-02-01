@@ -3,9 +3,9 @@ const jwt = require('jsonwebtoken')
 const bodyParser = require('body-parser')
 const graphqlHTTP = require('express-graphql')
 const resolver = require('./resolver')
-const { JWT_SECRET_KEY } = require('./constants')
 const schema = require('./schema')()
 const { isAuthenticated } = require('./middleware')
+const { JWT_SECRET_KEY, PORT } = require('./constants')
 
 const app = express()
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -30,5 +30,5 @@ app.use('/private/graphql', graphqlHTTP(req => {
   context: req.context || null,
 }}))
 
-app.listen(4001)
-console.log('Running protected GraphQL API server at localhost:4001/graphql')
+app.listen(PORT)
+console.log(`Running protected GraphQL API server at <domain>:${PORT}/private/graphql`)
