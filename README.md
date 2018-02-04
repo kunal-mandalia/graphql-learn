@@ -1,4 +1,4 @@
-# GraphQL-Learn [![CircleCI](https://circleci.com/gh/kunal-mandalia/graphql-learn.svg?style=svg)](https://circleci.com/gh/kunal-mandalia/graphql-learn)
+# GraphQL-Learn
 Hands on projects to get up to speed with GraphQL from the back to the front end.
 
 ## Demos
