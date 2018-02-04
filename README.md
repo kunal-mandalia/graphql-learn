@@ -1,6 +1,11 @@
 # GraphQL-Learn [![CircleCI](https://circleci.com/gh/kunal-mandalia/graphql-learn.svg?style=svg)](https://circleci.com/gh/kunal-mandalia/graphql-learn)
 Hands on projects to get up to speed with GraphQL from the back to the front end.
 
+## Demos
+Authentication with json web tokens:
+- Client: https://github.com/kunal-mandalia/graphql-client-auth
+- Server: https://github.com/kunal-mandalia/graphql-server-auth
+
 ## Core Concepts
 
 ### Schema
